@@ -1,0 +1,23 @@
+<h1 style="text-decoration: underline;">Tasks</h1>
+
+<div id="app">
+  <p># of incomplete tasks: {{ numIncompleteTasks }}</p>
+  <p># of complete tasks: {{ numCompleteTasks }}</p>
+  <button v-on:click="deleteAllComplete()">Delete all complete tasks</button><p style="display:none;color:red;" id="errorDeleteAll">There are no completed tasks</p>
+  <div v-for="task in tasks">
+    <h2 v-bind:class="{strike: task.taskComplete}" v-on:click="toggleTaskComplete(task)" v-on:mouseleave="task.infoVisible = !task.infoVisible" v-on:mouseover="task.infoVisible = !task.infoVisible">{{ task.text }}</h2>
+    <ul v-if="task.infoVisible">
+      <li v-bind:class="{strike: task.taskComplete}">Priority: {{ task.priority }}</li>
+      <li v-bind:class="{strike: task.taskComplete}">Length: {{ task.length }} </li>
+    </ul>
+  </div>
+  <p>-------------------------------------------------------------------------------------------------------------------</p>
+  <div>
+    <p style="margin-bottom:0px">Task:</p><input type="text" v-model="newTaskText">
+    <p style="margin-bottom:0px">Priority(integer):</p> <input type="text" v-model="newTaskPriority">
+    <p style="margin-bottom:0px">Length(Time):</p> <input type="text" v-model="newTaskLength"><br>
+    <button v-on:click="addTask()">Add task</button><br>
+    <p id="error" style="display: none; color: red;">task inputs can't be empty!</p>
+    
+  </div>
+</div>
